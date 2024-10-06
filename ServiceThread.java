@@ -9,11 +9,20 @@ public class ServiceThread implements Runnable {
     private static BufferedReader readFromClient;
     private static BufferedWriter writeToClient;
     private static String clientSaying;
+    
+    private Socket serverSocket;
+    private int clientNth;
 
-    Socket serverSocket;
-    public ServiceThread(Socket serverSocket) {
+    public ServiceThread(Socket serverSocket, int clientNth) {
         this.serverSocket = serverSocket;
+        this.clientNth = clientNth;
+        log("Client number " + this.clientNth + " has connected to the Server at socket " +  this.serverSocket);
     }
+
+    private void log(String message) {
+        System.out.println();
+    }
+
     @Override
     public void run() {
         // TODO Auto-generated method stub
