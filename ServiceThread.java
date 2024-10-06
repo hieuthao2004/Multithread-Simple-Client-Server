@@ -16,24 +16,23 @@ public class ServiceThread implements Runnable {
     public ServiceThread(Socket serverSocket, int clientNth) {
         this.serverSocket = serverSocket;
         this.clientNth = clientNth;
-        log("Client number " + this.clientNth + " has connected to the Server at socket " +  this.serverSocket);
+        log("Client number " + this.clientNth + " has connected to the Server at " +  this.serverSocket);
     }
 
-    private void log(String message) {
-        System.out.println();
+    private static void log(String message) {
+        System.out.println(message);
     }
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
         try {
             readFromClient = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
             writeToClient = new BufferedWriter(new OutputStreamWriter(serverSocket.getOutputStream()));
 
             while (true) {
                 clientSaying = readFromClient.readLine();
-                System.out.println(clientSaying);
-                writeToClient.write("Hello again socket");
+                System.out.println("CLIENT #" + this.clientNth + " SAYS: " + clientSaying);
+                writeToClient.write("SERVER SAYS: HELLO AGAIN SOCKET!");
                 writeToClient.newLine();
                 writeToClient.flush();
             }

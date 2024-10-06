@@ -7,11 +7,11 @@ public class ServerThread {
     private static ServerSocket listener;
     private static Socket serverSocket;
     private static BufferedWriter writeToClient;
-    private static int clientNth = 0;
     public static void main(String[] args) {
         try {
             listener = new ServerSocket(2301);
             System.out.println("Waiting for client connection...");
+            int clientNth = 0;
             
             while (true) {
                 serverSocket = listener.accept();
@@ -23,7 +23,7 @@ public class ServerThread {
                 writeToClient.newLine();
                 writeToClient.flush();
 
-                ServiceThread st = new ServiceThread(serverSocket, clientNth++);
+                ServiceThread st = new ServiceThread(serverSocket, ++clientNth);
                 Thread newThread = new Thread(st);
                 newThread.start();
             }
